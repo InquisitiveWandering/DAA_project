@@ -79,7 +79,6 @@ int main() {
     int totalCost = 0;
     cout << "\nMinimum-Cost Connections:\n";
 
-    // --- FIX START: Replace range-based for loop with a traditional indexed for loop ---
 
     for (int i = 0; i < edges.size(); i++) {
         Edge currentEdge = edges[i]; // Use a variable for clarity
@@ -91,7 +90,6 @@ int main() {
         }
     }
 
-    // --- FIX END ---
 
     cout << "\nTotal Minimum Cost = " << totalCost << endl;
     return 0;
