@@ -3,7 +3,7 @@
 using namespace std;
 
 struct Edge {
-    int u, v, w;   // u = node1, v = node2, w = cost
+    int u, v, w;   // where u = node1, v = node2, w = cost
 };
 
 int parent[1000];   // parent array for DSU
@@ -80,6 +80,7 @@ int main() {
     cout << "\nMinimum-Cost Connections:\n";
 
     // --- FIX START: Replace range-based for loop with a traditional indexed for loop ---
+
     for (int i = 0; i < edges.size(); i++) {
         Edge currentEdge = edges[i]; // Use a variable for clarity
 
@@ -89,6 +90,7 @@ int main() {
             totalCost += currentEdge.w;
         }
     }
+
     // --- FIX END ---
 
     cout << "\nTotal Minimum Cost = " << totalCost << endl;
