@@ -1,0 +1,96 @@
+#include <iostream>
+#include <vector>
+using namespace std;
+
+struct Edge {
+    int u, v, w;   // u = node1, v = node2, w = cost
+};
+
+int parent[1000];   // parent array for DSU
+
+// Find parent with path compression
+int findSet(int x) {
+    if (parent[x] == x)
+        return x;
+    return parent[x] = findSet(parent[x]);
+}
+
+// Union two sets
+void unionSet(int a, int b) {
+    a = findSet(a);
+    b = findSet(b);
+    parent[b] = a;
+}
+
+void mergeEdges(vector<Edge> &edges, int l, int m, int r) {
+    int n1 = m - l + 1;
+    int n2 = r - m;
+
+    vector<Edge> L(n1), R(n2);
+
+    for (int i = 0; i < n1; i++) L[i] = edges[l + i];
+    for (int i = 0; i < n2; i++) R[i] = edges[m + 1 + i];
+
+    int i = 0, j = 0, k = l;
+
+    while (i < n1 && j < n2) {
+        if (L[i].w <= R[j].w)
+            edges[k++] = L[i++];
+        else
+            edges[k++] = R[j++];
+    }
+
+    while (i < n1) edges[k++] = L[i++];
+    while (j < n2) edges[k++] = R[j++];
+}
+
+void mergeSortEdges(vector<Edge> &edges, int l, int r) {
+    if (l < r) {
+        int mid = (l + r) / 2;
+        mergeSortEdges(edges, l, mid);
+        mergeSortEdges(edges, mid + 1, r);
+        mergeEdges(edges, l, mid, r);
+    }
+}
+
+
+int main() {
+    int n, e;
+    cout << "Enter number of locations: ";
+    cin >> n;
+
+    cout << "Enter number of connections: ";
+    cin >> e;
+
+    vector<Edge> edges(e);
+
+    cout << "Enter edges (u v cost):\n";
+    for (int i = 0; i < e; i++) {
+        cin >> edges[i].u >> edges[i].v >> edges[i].w;
+    }
+
+    // Initialize DSU
+    for (int i = 1; i <= n; i++)
+        parent[i] = i;
+
+    // Sort edges by weight
+    mergeSortEdges(edges, 0, e - 1);
+
+    int totalCost = 0;
+    cout << "\nMinimum-Cost Connections:\n";
+
+    // --- FIX START: Replace range-based for loop with a traditional indexed for loop ---
+    for (int i = 0; i < edges.size(); i++) {
+        Edge currentEdge = edges[i]; // Use a variable for clarity
+
+        if (findSet(currentEdge.u) != findSet(currentEdge.v)) {
+            unionSet(currentEdge.u, currentEdge.v);
+            cout << currentEdge.u << " - " << currentEdge.v << " : " << currentEdge.w << "\n";
+            totalCost += currentEdge.w;
+        }
+    }
+    // --- FIX END ---
+
+    cout << "\nTotal Minimum Cost = " << totalCost << endl;
+    return 0;
+}
