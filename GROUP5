@@ -94,3 +94,24 @@ int main() {
     cout << "\nTotal Minimum Cost = " << totalCost << endl;
     return 0;
 }
+
+
+
+/*
+
+Sample Input
+Enter number of locations: 4
+Enter number of connections: 5
+Enter edges (u v cost):
+1 2 10
+1 3 6
+1 4 5
+2 4 15
+3 4 4
+Sample output
+Minimum-Cost Connections:
+3 - 4 : 4
+1 - 4 : 5
+1 - 2 : 10
+Total Minimum Cost = 19
+*/
