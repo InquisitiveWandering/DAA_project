@@ -8,14 +8,14 @@ struct Edge {
 
 int parent[1000]; 
 
-// Find parent with path compression
+
 int findSet(int x) {
     if (parent[x] == x)
         return x;
     return parent[x] = findSet(parent[x]);
 }
 
-// Union two sets
+
 void unionSet(int a, int b) {
     a = findSet(a);
     b = findSet(b);
