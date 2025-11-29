@@ -3,10 +3,10 @@
 using namespace std;
 
 struct Edge {
-    int u, v, w;   // where u = node1, v = node2, w = cost
+    int u, v, w;
 };
 
-int parent[1000];   // parent array for DSU
+int parent[1000]; 
 
 // Find parent with path compression
 int findSet(int x) {
@@ -69,11 +69,9 @@ int main() {
         cin >> edges[i].u >> edges[i].v >> edges[i].w;
     }
 
-    // Initialize DSU
     for (int i = 1; i <= n; i++)
         parent[i] = i;
 
-    // Sort edges by weight
     mergeSortEdges(edges, 0, e - 1);
 
     int totalCost = 0;
@@ -81,7 +79,7 @@ int main() {
 
 
     for (int i = 0; i < edges.size(); i++) {
-        Edge currentEdge = edges[i]; // Use a variable for clarity
+        Edge currentEdge = edges[i];
 
         if (findSet(currentEdge.u) != findSet(currentEdge.v)) {
             unionSet(currentEdge.u, currentEdge.v);
